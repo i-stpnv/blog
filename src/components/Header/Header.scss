@@ -2,7 +2,7 @@
   display: flex;
   padding: 20px 22px;
   justify-content: space-between;
-  background: #FFFFFF;
+  background: #ffffff;
   font-size: 18px;
   align-items: center;
 
@@ -14,7 +14,6 @@
   &__auth-wrapper {
     display: flex;
     align-items: center;
-
   }
 
   &__sign-in {
@@ -25,16 +24,16 @@
 
   &__sign-up {
     text-decoration: none;
-    border: 1px solid #52C41A;
+    border: 1px solid #52c41a;
     padding: 13px 18px 16px 18px;
     border-radius: 5px;
-    color: #52C41A;
+    color: #52c41a;
   }
 
   &__logout {
     padding: 13px 18px 13px 18px;
     text-decoration: none;
-    border: 1px solid rgba(0, 0, 0, 0.75);;
+    border: 1px solid rgba(0, 0, 0, 0.75);
     border-radius: 5px;
     color: rgba(0, 0, 0, 0.75);
     margin-left: 27px;
@@ -43,8 +42,8 @@
   &__create-post {
     text-decoration: none;
     border-radius: 5px;
-    color: #52C41A;
-    border: 1px solid #52C41A;
+    color: #52c41a;
+    border: 1px solid #52c41a;
     padding: 8px 8px 8px 8px;
     margin-right: 20px;
   }
