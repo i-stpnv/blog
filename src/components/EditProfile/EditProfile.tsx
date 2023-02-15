@@ -1,17 +1,18 @@
 import './EditProfile.scss'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import { useEditProfileMutation } from '../../redux/reducers/postsApi'
 import { IFormInput } from '../../types/interfaces'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 
 const EditProfile = () => {
   const navigate = useNavigate()
-  const { username } = useParams()
-  console.log(username)
-  const [userNameInForm, setUserNameInForm] = useState('.')
+  const [userNameInForm, setUserNameInForm] = useState(localStorage.getItem('username') || '')
+  const [userEmailInForm, setUserEmailInForm] = useState(localStorage.getItem('email') || '')
   const [editProfile, { error, isSuccess }] = useEditProfileMutation()
+  const { isLogin } = useTypedSelector((state) => state.isLogin)
   const {
     register,
     handleSubmit,
@@ -37,10 +38,19 @@ const EditProfile = () => {
       },
       localStorage.getItem('token'),
     ])
+    localStorage.setItem('username', userNameInForm)
+    localStorage.setItem('email', userEmailInForm)
   }
-  const changeValue = (e: any) => {
+
+  const changeUserNameInForm = (e: any) => {
     if (e.target.placeholder === 'Username') {
       setUserNameInForm(e.target.value)
+    }
+  }
+
+  const changeUserEmailInForm = (e: any) => {
+    if (e.target.placeholder === 'Email address') {
+      setUserEmailInForm(e.target.value)
     }
   }
 
@@ -50,72 +60,79 @@ const EditProfile = () => {
     setUserNameInForm(username)
   }
 
-  return (
-    <form className="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
-      <h2>Edit Profile</h2>
+  if (isLogin || localStorage.getItem('auth')) {
+    return (
+      <form className="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
+        <h2>Edit Profile</h2>
 
-      <div className="input-text-wrapper">
-        <label htmlFor="">Username</label>
-        <input
-          type="text"
-          value={userNameInForm}
-          {...register('Username', { required: true, minLength: 3, maxLength: 20 })}
-          placeholder="Username"
-          onChange={(e) => changeValue(e)}
-        />
+        <div className="input-text-wrapper">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            value={userNameInForm}
+            {...register('Username', { required: true, minLength: 3, maxLength: 20 })}
+            placeholder="Username"
+            onChange={(e) => changeUserNameInForm(e)}
+          />
 
-        {errors.Username?.type === 'minLength' ? (
-          <span style={{ color: 'red' }}>Your username needs to be at least 6 characters.</span>
-        ) : null}
-        {errors.Username?.type === 'maxLength' ? (
-          <span style={{ color: 'red' }}>Your username must be 40 characters or less.</span>
-        ) : null}
-        {errors.Username?.type === 'required' && <span style={{ color: 'red' }}>Required field</span>}
-      </div>
+          {errors.Username?.type === 'minLength' ? (
+            <span style={{ color: 'red' }}>Your username needs to be at least 6 characters.</span>
+          ) : null}
+          {errors.Username?.type === 'maxLength' ? (
+            <span style={{ color: 'red' }}>Your username must be 40 characters or less.</span>
+          ) : null}
+          {errors.Username?.type === 'required' && <span style={{ color: 'red' }}>Required field</span>}
+        </div>
 
-      <div className="input-text-wrapper">
-        <label htmlFor="">Email address</label>
-        <input
-          type="text"
-          {...register('Email', {
-            required: true,
-            pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-          })}
-          placeholder="Email address"
-        />
-        {error && <span style={{ color: 'red' }}>Is already taken.</span>}
-        {errors.Email?.type === 'pattern' ? <span style={{ color: 'red' }}>Wrong email format</span> : null}
-        {errors.Email?.type === 'required' ? <span style={{ color: 'red' }}>Required field</span> : null}
-      </div>
+        <div className="input-text-wrapper">
+          <label htmlFor="email">Email address</label>
+          <input
+            type="text"
+            id="email"
+            value={userEmailInForm}
+            {...register('Email', {
+              required: true,
+              pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+            })}
+            placeholder="Email address"
+            onChange={(e) => changeUserEmailInForm(e)}
+          />
+          {error && <span style={{ color: 'red' }}>Is already taken.</span>}
+          {errors.Email?.type === 'pattern' ? <span style={{ color: 'red' }}>Wrong email format</span> : null}
+          {errors.Email?.type === 'required' ? <span style={{ color: 'red' }}>Required field</span> : null}
+        </div>
 
-      <div className="input-text-wrapper">
-        <label htmlFor="">New Password</label>
-        <input
-          type="password"
-          {...register('Password', {
-            required: true,
-            minLength: 6,
-            maxLength: 40,
-          })}
-          placeholder="Password"
-        />
-        {errors.Password?.type === 'required' ? <span style={{ color: 'red' }}>Required field</span> : null}
-        {errors.Password?.type === 'minLength' ? (
-          <span style={{ color: 'red' }}>Your password needs to be at least 6 characters.</span>
-        ) : null}
-        {errors.Password?.type === 'maxLength' ? (
-          <span style={{ color: 'red' }}>Your password must be 40 characters or less.</span>
-        ) : null}
-      </div>
+        <div className="input-text-wrapper">
+          <label htmlFor="new-password">New Password</label>
+          <input
+            type="password"
+            id="new-password"
+            {...register('Password', {
+              required: true,
+              minLength: 6,
+              maxLength: 40,
+            })}
+            placeholder="Password"
+          />
+          {errors.Password?.type === 'required' ? <span style={{ color: 'red' }}>Required field</span> : null}
+          {errors.Password?.type === 'minLength' ? (
+            <span style={{ color: 'red' }}>Your password needs to be at least 6 characters.</span>
+          ) : null}
+          {errors.Password?.type === 'maxLength' ? (
+            <span style={{ color: 'red' }}>Your password must be 40 characters or less.</span>
+          ) : null}
+        </div>
 
-      <div className="input-text-wrapper">
-        <label htmlFor="">Avatar image (url)</label>
-        <input type="text" {...register('Image')} placeholder="Image" />
-      </div>
+        <div className="input-text-wrapper">
+          <label htmlFor="avatar">Avatar image (url)</label>
+          <input type="text" id="avatar" {...register('Image')} placeholder="Image" />
+        </div>
 
-      <button>Save</button>
-    </form>
-  )
+        <button>Save</button>
+      </form>
+    )
+  } else return <Navigate to="/articles" />
 }
 
 export { EditProfile }

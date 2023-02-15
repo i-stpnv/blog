@@ -12,9 +12,11 @@ const Pagination = () => {
 
   const { page } = useTypedSelector((state) => state.page)
 
-  const pagesList = [page, page + 1, page + 2, page + 3, page + 4].map((el) => {
+  const pagesList = [page, page + 1, page + 2, page + 3, page + 4].map((el, index) => {
+    const classNames = ['pagination-panel__page-link']
+    if (index === 0) classNames.push('active')
     return (
-      <li className="pagination-panel__page-link" key={el}>
+      <li className={classNames.join(' ')} key={el}>
         <button onClick={(e) => onClickPage(e)}>{el}</button>
       </li>
     )

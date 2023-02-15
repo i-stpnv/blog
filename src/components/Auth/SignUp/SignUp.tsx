@@ -90,7 +90,7 @@ const SignUp = () => {
       <div className="input-text-wrapper">
         <label htmlFor="">Password</label>
         <input
-          type="text"
+          type="password"
           style={style}
           {...register('Password', {
             required: true,
@@ -110,7 +110,7 @@ const SignUp = () => {
       <div className="input-text-wrapper">
         <label htmlFor="">Repeat Password</label>
         <input
-          type="text"
+          type="password"
           style={{ ...style, marginBottom: '5px' }}
           {...register('RepeatPassword', {
             required: true,

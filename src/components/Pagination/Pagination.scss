@@ -10,8 +10,9 @@
     border: none;
     height: 25px;
     cursor: pointer;
+
     &:hover {
-      background: #1890ff;
+      background: #1478d7;
       color: white;
       border-radius: 5px;
     }
@@ -34,12 +35,21 @@
     border-radius: 4px;
   }
 
+  &__page-link.active button {
+    background: #1890ff;
+    color: white;
+    border-radius: 5px;
+
+    &:hover {
+      background: #1478d7;
+    }
+  }
+
   &__next-page-button {
     margin-left: 20px;
   }
 }
 
-.active {
-  background: #1890ff;
-  color: white;
+button {
+  color: inherit;
 }

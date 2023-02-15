@@ -1,4 +1,5 @@
 import './Posts.scss'
+import { Spin } from 'antd'
 import { FunctionComponent } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -29,6 +30,12 @@ const Posts: FunctionComponent = () => {
         </li>
       )
     })
+  } else {
+    return (
+      <div style={{ padding: 20 }}>
+        <Spin size="large" />
+      </div>
+    )
   }
 
   return (

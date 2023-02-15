@@ -2,6 +2,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import './Post.scss'
 import { FunctionComponent, useEffect, useState } from 'react'
 import { parseISO } from 'date-fns'
+import { Spin } from 'antd'
+import ReactMarkdown from 'react-markdown'
 
 import warning from '../../../img/warning.svg'
 import { useDeletePostMutation, useGetPostQuery } from '../../../redux/reducers/postsApi'
@@ -31,7 +33,11 @@ const Post: FunctionComponent = () => {
 
   let content
   if (isLoading) {
-    content = <h1>Загрузка</h1>
+    content = (
+      <div style={{ padding: 20 }}>
+        <Spin size="large" />
+      </div>
+    )
   }
   if (isSuccess) {
     const formatDate = parseISO(data.article.createdAt).toString().slice(0, 25)
@@ -69,7 +75,7 @@ const Post: FunctionComponent = () => {
 
           <p className="post-wrapper__overview">{data.article.description.slice(0, 300)}</p>
 
-          <p>{data.article.body}</p>
+          <ReactMarkdown>{data.article.body}</ReactMarkdown>
         </div>
 
         <div className="post-wrapper__right-content">
