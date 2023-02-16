@@ -11,10 +11,11 @@ import { SignUp } from './components/Auth/SignUp/SignUp'
 import { EditProfile } from './components/EditProfile/EditProfile'
 import { CreateNewPost } from './components/CreateNewPost/CreateNewPost'
 import { EditPost } from './components/EditPost/EditPost'
+import { ErrorPage } from './components/ErrorPage/ErrorPage'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
+    <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
       <Route path="" element={<HomePage />} />
       <Route path="articles" element={<Posts />} />
       <Route path="articles/:slug" element={<Post />} />

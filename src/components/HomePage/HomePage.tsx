@@ -4,8 +4,8 @@ import './HomePage.scss'
 const HomePage = () => {
   return (
     <div className="home-page-wrapper">
-      <h1 className="home-page-title">HomePage</h1>
-      <Link to="/articles">К статьям</Link>
+      <h1 className="home-page-title">Welcome to Realworld Blog!</h1>
+      <Link to="/articles">To articles</Link>
     </div>
   )
 }

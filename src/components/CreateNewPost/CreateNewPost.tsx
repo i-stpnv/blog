@@ -8,7 +8,7 @@ import { useCreatePostMutation } from '../../redux/reducers/postsApi'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 
 const CreateNewPost = () => {
-  const [tag, setTag] = useState(0)
+  const [tagCount, setTagCount] = useState(0)
   const [createPost, { isSuccess }] = useCreatePostMutation()
   const {
     register,
@@ -29,7 +29,7 @@ const CreateNewPost = () => {
     const tagList = []
 
     for (const key in tags) {
-      tagList.push(tags[key])
+      if (tags[key].trim() !== '') tagList.push(tags[key])
     }
 
     createPost([
@@ -45,9 +45,9 @@ const CreateNewPost = () => {
     ])
   }
 
-  const elements: JSX.Element[] = Array.from(Array(tag).keys()).map((el) => {
+  const elements: JSX.Element[] = Array.from(Array(tagCount).keys()).map((el) => {
     return (
-      <li key={Date.now()}>
+      <li key={el + 1}>
         <input type="text" {...register(`Tag${el + 1}`)} placeholder="Tag" />
         <button onClick={(e) => deleteTag(e)} className="delete-button">
           Delete
@@ -58,14 +58,13 @@ const CreateNewPost = () => {
 
   const addTag = (e: any) => {
     e.preventDefault()
-    setTag(tag + 1)
+    setTagCount(tagCount + 1)
   }
 
   const deleteTag = (e: any) => {
     e.preventDefault()
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    if (tag > 0) {
-      setTag(tag - 1)
+    if (tagCount > 0) {
+      setTagCount(tagCount - 1)
     }
   }
 
