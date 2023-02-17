@@ -26,6 +26,12 @@ const Posts: FunctionComponent = () => {
         </li>
       )
     })
+  } else {
+    return (
+      <div style={{ padding: 20 }}>
+        <Spin size="large" />
+      </div>
+    )
   }
 
   if (!loading) {
