@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 384px;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
   margin-top: 60px;
   background: #ffffff;
   border: 1px solid #d9d9d9;
@@ -62,19 +62,21 @@
   }
 
   button {
+    cursor: pointer;
     width: 320px;
     background: #1890ff;
     border-radius: 4px;
     color: white;
     border: none;
     height: 40px;
-    margin-bottom: 15px;
+    margin-top: 20px;
   }
 
   span {
     color: #8c8c8c;
     font-size: 12px;
   }
+
   a {
     text-decoration: none;
     color: #1890ff;

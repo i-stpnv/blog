@@ -32,7 +32,7 @@ const Header = () => {
         </Link>
         <div className="header__auth-wrapper">
           <Link className="header__create-post" to="/new-article">
-            Create post
+            Create article
           </Link>
           <Link className="header__profile" to={`/profile/${userName}`}>
             <span>{userName}</span>

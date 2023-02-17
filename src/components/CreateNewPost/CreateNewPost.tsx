@@ -17,6 +17,7 @@ const CreateNewPost = () => {
   } = useForm()
   const navigate = useNavigate()
   const { isLogin } = useTypedSelector((state) => state.isLogin)
+
   useEffect(() => {
     if (isSuccess) {
       return navigate('/articles')
@@ -72,6 +73,7 @@ const CreateNewPost = () => {
     return (
       <form className="create-post-form" onSubmit={handleSubmit(onSubmit)}>
         <h2>Create new article</h2>
+
         <div className="create-post-input-wrapper">
           <label htmlFor="">Title</label>
           <input
@@ -91,6 +93,7 @@ const CreateNewPost = () => {
             <span style={{ color: 'red', marginBottom: '15px' }}>You need to enter at least 3 characters</span>
           ) : null}
         </div>
+
         <div className="create-post-input-wrapper">
           <label htmlFor="">Short description</label>
           <input
@@ -110,6 +113,7 @@ const CreateNewPost = () => {
           ) : null}
           {errors.Desc?.type === 'required' ? <span style={{ color: 'red' }}>Required field</span> : null}
         </div>
+
         <div className="create-post-input-wrapper">
           <label htmlFor="">Text</label>
           <textarea
@@ -128,6 +132,7 @@ const CreateNewPost = () => {
           ) : null}
           {errors.Body?.type === 'required' ? <span style={{ color: 'red' }}>Required field</span> : null}
         </div>
+
         <div className="create-post-input-wrapper">
           <label htmlFor="">Tags</label>
           <ul>
@@ -143,6 +148,7 @@ const CreateNewPost = () => {
             </li>
           </ul>
         </div>
+
         <button className="send-button">Send</button>
       </form>
     )
