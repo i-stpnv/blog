@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const token = localStorage.getItem('token')
-const localSlug = localStorage.getItem('slug')
 export const postsApi = createApi({
   reducerPath: 'postsApi',
   tagTypes: ['Posts', 'Post'],
@@ -73,9 +72,9 @@ export const postsApi = createApi({
       invalidatesTags: ['Posts'],
     }),
     updatePost: build.mutation({
-      query([body, token]) {
+      query([slug, body, token]) {
         return {
-          url: `articles/${localSlug}`,
+          url: `articles/${slug}`,
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
             Authorization: `Bearer ${token}`,

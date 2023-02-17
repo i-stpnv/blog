@@ -44,6 +44,7 @@ const EditPost = () => {
     }
 
     updatePost([
+      slug,
       {
         article: {
           title: Title,
